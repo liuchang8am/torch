@@ -1,0 +1,4 @@
+build/
+install/
+*/*/build
+extra/luafilesystem/lfs.so

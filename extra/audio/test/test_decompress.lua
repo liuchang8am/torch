@@ -1,0 +1,12 @@
+require 'audio'
+m=audio.samplevoice()
+print(m:nElement())
+print('ok')
+o = audio.compress(m, 22050, 'ogg')
+print(torch.type(o))
+print(o:nElement())
+print('compressed')
+-- outf = torch.DiskFile("www.ogg", "w"):binary()
+-- outf:writeChar(o:storage())
+-- outf:close()
+m2 = audio.decompress(o, 'ogg')

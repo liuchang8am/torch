@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+mode=$1
+if [ -z "$mode" ]; then
+    mode="console"
+else
+    shift
+fi
+v=$(ipython --version|cut -f1 -d'.')
+if [ $v = 2 ]; then
+    ipython $mode --profile torch $@
+elif [ $v = 3 ]; then
+    if [ $mode = "console" ]; then
+	     ipython $mode --profile torch $@
+    else
+	     ipython $mode --MappingKernelManager.default_kernel_name="itorch" $@
+    fi
+elif [ $v = 4 ]; then
+    if [ $mode = "console" ]; then
+      jupyter console --kernel=itorch $@
+    else
+      ipython $mode --MappingKernelManager.default_kernel_name="itorch" $@
+    fi
+else
+    echo "Unsupported ipython version. Only major versions 2.xx, 3.xx, or 4.xx (Jupyter) are supported"
+fi
